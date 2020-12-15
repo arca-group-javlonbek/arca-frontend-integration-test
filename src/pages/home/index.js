@@ -6,12 +6,18 @@ import { CustomTable } from '../../components/table'
   
 
 export const Home = () => {
+
+    const handleRowClick = data => {
+        console.log(data)
+    }
+
     return (
         <div className = {styles.cont}>
             <CustomTable
                 tableContent = {partList}
                 tableTitle = {tableTitlePartner}
                 tableCellTitles = {partnerTableTitles}
+                handleRowClick = {handleRowClick}
             />
         </div>
     )

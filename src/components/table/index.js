@@ -76,11 +76,11 @@ import Paper from '@material-ui/core/Paper'
     },
   }))
   
-  export const CustomTable = ({tableContent, tableTitle, tableCellTitles}) => {
+  export const CustomTable = ({ tableContent, tableTitle, tableCellTitles, handleRowClick }) => {
     const classes = useStyles()
   
-    const handleClick = (name) => {
-        console.log(name)
+    const handleClick = name => {
+        handleRowClick(name)
     }
   
     return (
