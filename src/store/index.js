@@ -1,133 +1,49 @@
-import { observable } from "mobx";
+import { action, observable } from "mobx"
 
-export const partList = observable([
-    {
-        "opName": "11q",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddress",
-        "contactManager": "firstContactManager",
-        "contactMob":2,
-        "thirdOpMapId": "1",
-        "thirdOpMapName": "firstThirdOpMapName"
-    },{
-        "opName": "11q222",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddresstwo",
-        "contactManager": "firstContactManager",
-        "contactMob":2225,
-        "thirdOpMapId": "2",
-        "thirdOpMapName": "firstThirdOpMapName"
-    },{
-        "opName": "11q",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddress",
-        "contactManager": "firstContactManager",
-        "contactMob":2,
-        "thirdOpMapId": "",
-        "thirdOpMapName": "firstThirdOpMapName"
-    },{
-        "opName": "11q222",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddresstwo",
-        "contactManager": "firstContactManager",
-        "contactMob":2225,
-        "thirdOpMapId": "",
-        "thirdOpMapName": "firstThirdOpMapName"
-    },{
-        "opName": "11q",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddress",
-        "contactManager": "firstContactManager",
-        "contactMob":2,
-        "thirdOpMapId": "",
-        "thirdOpMapName": "firstThirdOpMapName"
-    },{
-        "opName": "11q222",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddresstwo",
-        "contactManager": "firstContactManager",
-        "contactMob":2225,
-        "thirdOpMapId": "",
-        "thirdOpMapName": "firstThirdOpMapName"
-    },{
-        "opName": "11q",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddress",
-        "contactManager": "firstContactManager",
-        "contactMob":2,
-        "thirdOpMapId": "",
-        "thirdOpMapName": "firstThirdOpMapName"
-    },{
-        "opName": "11q222",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddresstwo",
-        "contactManager": "firstContactManager",
-        "contactMob":2225,
-        "thirdOpMapId": "",
-        "thirdOpMapName": "firstThirdOpMapName"
-    },{
-        "opName": "11q",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddress",
-        "contactManager": "firstContactManager",
-        "contactMob":2,
-        "thirdOpMapId": "",
-        "thirdOpMapName": "firstThirdOpMapName"
-    },{
-        "opName": "11q222",
-        "opLogo": "firstOpLogo",
-        "cityAddress": "firstCityAddresstwo",
-        "contactManager": "firstContactManager",
-        "contactMob":2225,
-        "thirdOpMapId": "",
-        "thirdOpMapName": "firstThirdOpMapName"
-    }
-])
+export let partList = observable({
+    config: {},
+    data: [],
+    headers: {},
+    request: {},
+    status: 0
+})
 
-export const merchantList = [
-    {
-        "userMobile":9988998888,
-        "nickName": "firstNickName",
-        "thirdOpMapId":"5fd83f25e73ea505b8cdcdd5",
-        "thirdMerMapId":"1",
-        "thirdMerMapName":"testName"
-    },
-    {
-        "userMobile":9988991111,
-        "nickName": "secondNickName",
-        "thirdOpMapId":"5fd83f25e73ea505b8cdcdd5",
-        "thirdMerMapId":"2",
-        "thirdMerMapName":"testName"
-    },
-    {
-        "userMobile":9988994555,
-        "nickName": "thirdNickName",
-        "thirdOpMapId":"5fd83f25e73ea505b8cdcdd5",
-        "thirdMerMapId":"3",
-        "thirdMerMapName":"testName"
-    }
-]
+export const setPartList = action(data => {
+    partList.config = data.config
+    partList.data = data.data
+    partList.headers = data.headers
+    partList.request = data.request
+    partList.status = data.status
+})
 
-export const storeList = [
-    {
-        "shopName":"shopNameTest",
-        "cityAddress":"cityAddressTest",
-        "thirdMerMapId":"5fd83f3ee73ea505b8cdcdd6",
-        "thirdShopMapId":"1",
-        "thirdShopMapName":"testName111"
-    },
-    {
-        "shopName":"shopNameTestda",
-        "cityAddress":"cityAddressTest",
-        "thirdMerMapId":"5fd83f3ee73ea505b8cdcdd6",
-        "thirdShopMapId":"1",
-        "thirdShopMapName":"testName111"
-    },
-    {
-        "shopName":"shopNameTest",
-        "cityAddress":"cityAddressTest",
-        "thirdMerMapId":"5fd83f3ee73ea505b8cdcdd6",
-        "thirdShopMapId":"2",
-        "thirdShopMapName":"testName222"
-    }
-]
+export let merchantList = observable({
+    config: {},
+    data: [],
+    headers: {},
+    request: {},
+    status: 0
+}) 
+
+export const setMerchantList = action(data => {
+    merchantList.config = data.config
+    merchantList.data = data.data
+    merchantList.headers = data.headers
+    merchantList.request = data.request
+    merchantList.status = data.status
+})
+
+export const storeList = observable({
+    config: {},
+    data: [],
+    headers: {},
+    request: {},
+    status: 0
+})
+
+export const setStoreList = action(data => {
+    storeList.config = data.config
+    storeList.data = data.data
+    storeList.headers = data.headers
+    storeList.request = data.request
+    storeList.status = data.status
+})

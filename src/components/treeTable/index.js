@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MaterialTable from 'material-table'
 import PropTypes from 'prop-types'
 import styles from './index.module.sass'
 import { CustomTable } from '../table'
-import { storeList } from '../../store'
+import { merchantList, setMerchantList, storeList } from '../../store'
 import { storeTableTitles } from '../../pages/home/constants'
 import { AddButton } from '../addButton'
+import { Api, apiUrles } from '../../api'
+import { observer } from 'mobx-react'
 
 const daata = [
     {
@@ -29,9 +31,36 @@ const daata = [
     }
     ]
 
-export const TreeTable = ({title, columns, data, openAddForm, openNestedAddForm}) => {
+export const TreeTable = observer(({title, columns, openAddForm, openNestedAddForm, idPartner}) => {
+
+    useEffect( async() => {
+        const resMerchant = await Api(apiUrles.merchant)
+        if (resMerchant.status === 200) {
+            console.log(resMerchant)
+            setMerchantList(resMerchant)
+        } else {
+            console.log(resMerchant)
+            alert(resMerchant.toString())
+        }
+        console.log('asdasda', idPartner)
+    }, [])
     
     const storeKeyIndexes = [0, 1, 4]
+
+    const filteredMerchant = merchantList.data.filter(merchant => merchant.thirdOpMapId === idPartner)
+
+    const handleDetailClick = rowData => {
+        console.log(rowData)
+        return (
+            <div>asdfas</div>
+            // <CustomTable
+            //     tableContent = {storeList}
+            //     tableCellTitles = {storeTableTitles}
+            //     renderKeyIndexes = {storeKeyIndexes}
+            //     handleOpenForm = {openNestedAddForm}
+            // />
+        )
+    }
 
     return (
     <MaterialTable
@@ -39,18 +68,9 @@ export const TreeTable = ({title, columns, data, openAddForm, openNestedAddForm}
             title = {title}
             addClick = {openAddForm}
         />} 
-        data={data}
+        data={filteredMerchant}
         columns = {columns}
-        detailPanel={rowData => {
-            return (
-                <CustomTable
-                    tableContent = {storeList}
-                    tableCellTitles = {storeTableTitles}
-                    renderKeyIndexes = {storeKeyIndexes}
-                    handleOpenForm = {openNestedAddForm}
-                />
-            )
-        }}
+        detailPanel={handleDetailClick}
         options={{
             search: false,
             showSelectAllCheckbox: false,
@@ -59,11 +79,12 @@ export const TreeTable = ({title, columns, data, openAddForm, openNestedAddForm}
         }}
     />
     )
-}
+})
 
 TreeTable.propTypes = {
     title: PropTypes.string.isRequired,
     columns: PropTypes.array.isRequired,
+    idPartner: PropTypes.string.isRequired,
     openAddForm: PropTypes.func,
     openNestedAddForm: PropTypes.func
 }

@@ -16,9 +16,10 @@ import { AddButton } from '../addButton'
         <TableRow className = {classes.headTableRow}>
             {tableTitles.map((item, index) => 
             <TableCell
-                align={index === 0 ? 'left': 'right'} 
-                padding='default'
-                className={classes.tableCellItems}
+              key={item.name}
+              align={index === 0 ? 'left': 'right'} 
+              padding='default'
+              className={classes.tableCellItems}
             >
                 {item.name}
             </TableCell>
@@ -80,40 +81,18 @@ import { AddButton } from '../addButton'
                 {tableContent
                   .map((item, index) => {
                       renderItem = Object.values(item)
-                      if (!accordion) {
-                        return (
-                          <TableRow
-                            hover = {handleRowClick ? true : false}
-                            className = {classes.tableRow}
-                            onClick={() => handleClick(renderItem[renderKeyIndexes[0]])}
-                            tabIndex={-1}
-                            key={renderItem[renderKeyIndexes[0]]}
-                          >
-                            {renderKeyIndexes.map((item, index) => 
-                              <TableCell align={index === 0 ? 'left' : 'right'}>{renderItem[renderKeyIndexes[index]]}</TableCell>
-                            )}
-                          </TableRow>
-                        )
-                      } else {
-                        return (
-                          <>
-                            <TableRow
-                              hover
-                              className = {classes.tableRow}
-                              onClick={() => handleChooseStore(index)}
-                              tabIndex={-1}
-                              key={renderItem[renderKeyIndexes[0]]}
-                            >
-                              {renderKeyIndexes.map((item, index) => 
-                                <TableCell align={index === 0 ? 'left' : 'right'}>{renderItem[renderKeyIndexes[index]]}</TableCell>
-                              )}
-                            </TableRow>
-                            {storeIndex === index && <div className = {classes.accordionCont}>
-                              {childComponent}
-                            </div>}
-                          </>
-                        )
-                      }
+                      return (
+                        <TableRow
+                          hover = {handleRowClick ? true : false}
+                          className = {classes.tableRow}
+                          onClick={() => handleClick(item.thirdOpMapId)}
+                          tabIndex={-1}
+                          key={index}
+                        >
+                          {renderKeyIndexes.map((item, index) => 
+                            <TableCell align={index === 0 ? 'left' : 'right'}>{renderItem[renderKeyIndexes[index]]}</TableCell>
+                          )}
+                        </TableRow>)
                     }
                   )}
               </TableBody>

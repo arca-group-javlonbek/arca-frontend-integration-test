@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { partnerTableTitles, tableTitle, merchantTableColumns, storeTableTitles } from './constants'
-import { merchantList, partList, storeList } from '../../store'
+import { merchantList, partList, setPartList, storeList } from '../../store'
 import styles from './index.module.sass'
 import { CustomTable } from '../../components/table'
 import { makeStyles } from '@material-ui/core/styles'
@@ -16,6 +16,7 @@ import { ModalForm } from '../../components/modalForm'
 import { PartnerForm } from '../../components/forms/partnerForm'
 import { lang } from '../../languages/lang'
 import { Api, apiUrles } from '../../api'
+import { observer } from 'mobx-react'
   
 
 function PaperComponent(props) {
@@ -26,11 +27,17 @@ function PaperComponent(props) {
     )
   }
 
-export const Home = () => {
+export const Home = observer(() => {
 
-    useEffect( async () => {
-        const res = await Api(apiUrles.partner)
-        console.log(res)
+    useEffect(async () => {
+            const res = await Api(apiUrles.partner)
+            if (res.status === 200) {
+                console.log(res)
+                setPartList(res)
+            } else {
+                console.log(res)
+                alert(res.toString())
+            }
     },[])
 
     const [openMerchant, setMerchant] = useState(false)
@@ -43,12 +50,15 @@ export const Home = () => {
 
     const [openStore, setStore] = useState(false)
 
+    const [idPartner, setIdPartner] = useState('')
+
     const classes = useStyles()
 
-    const partnerKeyIndexes = [0, 2, 3, 4]
+    const partnerKeyIndexes = [3, 5, 6, 7]
 
-    const handleOpenMerchant = data => {
+    const handleOpenMerchant = idPartner => {
         setMerchant(true)
+        setIdPartner(idPartner)
     }
 
     const handleCloseMerchant = () => {
@@ -84,7 +94,7 @@ export const Home = () => {
     return (
         <div className = {styles.cont}>
             <CustomTable
-                tableContent = {partList}
+                tableContent = {partList.data}
                 tableTitle = {tableTitle.partner}
                 tableCellTitles = {partnerTableTitles}
                 handleRowClick = {handleOpenMerchant}
@@ -105,10 +115,10 @@ export const Home = () => {
                     <DialogContentText>
                         <TreeTable
                             title = {tableTitle.merchant}
-                            data = {merchantList}
                             columns = {merchantTableColumns}
                             openAddForm = {handleOpenMerchantForm}
                             openNestedAddForm = {handleOpenStoreForm}
+                            idPartner = {idPartner}
                         />
                     </DialogContentText>
                 </DialogContent>
@@ -150,7 +160,7 @@ export const Home = () => {
             </ModalForm>
         </div>
     )
-}
+})
 
 const useStyles = makeStyles((theme) => ({
     dialogCont: {
